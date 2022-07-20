@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Yunshan Lyu</title>
+
+<link id="styleLink" rel="stylesheet" type="text/css" href="light.css">
+<Script>
+
+
+    function themeOption(value, txt) {
+    document.getElementById('styleLink').href = value;
+    message("Theme switched to" + txt, 2)
+    }
+
+    function message(txt, level){
+    // your code here
+    var bg_color;
+    switch (level) {
+        case 0: // loading
+            bg_color = '#56B4F5'
+            break;
+        case 1: // Error
+            bg_color = '#FF0000'
+            break;
+        case 2: // done
+            bg_color = '#5FD5A2'
+            break;
+        default:
+            bg_color = '#56B4F5'
+         }
+    document.getElementById('msg').innerHTML = txt;
+    document.getElementById('msg').style.backgroundColor = bg_color;
+    }
+
+    function load_Page(path) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4) {
+                if (xhttp.status == 200) {
+                    message("Content successfully loaded.", 2)
+                    document.getElementById("introduction").innerHTML =
+                        xhttp.responseText;
+                } else {
+                    message(`Error. Server says ${xhttp.statusText}!`, 1)
+                }
+            } else {
+                message("Loading, please wait...", 0)
+            }
+        }
+        xhttp.open("GET", path);
+        xhttp.send();
+    }
+
+</script>
+</head>
+
+<body onload="load_Page('processor.php?page=1')">
+<div class="nav">
+  <div id="mainnav">
+    <ul>
+      <li><button onclick="load_Page('processor.php?page=1')" class="pagebutton">Home</button></li>
+      <li><button onclick="load_Page('processor.php?page=2')" class="pagebutton">UCC</button></li>
+      <li><button onclick="load_Page('processor.php?page=3')" class="pagebutton">Personal</button></li>
+      <li><button onclick="load_Page('processor.php?page=4')" class="pagebutton">Contact</button></li>
+      <li><button onclick="load_Page('processor.php?page=100')" class="pagebutton">404test</button></li>
+      <li><button onclick="load_Page('processor.php?page=5')" class="pagebutton">503test</button></li>
+
+        <div id="themenav">
+          <li class="theme_li">
+            <button onclick="themeOption('light.css','Light Theme')" class="themebutton">
+              Light
+            </button>
+          </li>
+          <li class="theme_li">
+            <button onclick="themeOption('dark.css','Dark Theme')" class="themebutton">
+              Dark
+            </button>
+          </li>
+          <li class="theme_li">
+            <button onclick="themeOption('large_fonts.css', 'Large Fonts Theme')" class="themebutton">
+              Large Fonts
+            </button>
+          </li>
+          <li class="theme_li">
+            <button onclick="themeOption('sea.css','Sea Theme')" class="themebutton">
+              Sea
+            </button>
+          </li>
+          <li class="theme_li">
+            <button onclick="themeOption('forest.css','Forest Theme')" class="themebutton">
+              Forest
+            </button>
+          </li>
+        </div>
+    </ul>
+  </div>
+</div>
+<div id="introduction">
+
+ <!-- Content should appear here. -->
+
+</div>
+
+<div id="msg">
+
+</div>
+
+
+</body>
+</html>
